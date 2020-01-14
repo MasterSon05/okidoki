@@ -1,2 +1,2 @@
 # okidoki
-Visual Studio Code üzerinden ikinci değişiklik!
+Visual Studio Code üzerinden ikinci değişiklik!sadadsa
