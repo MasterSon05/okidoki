@@ -4,6 +4,7 @@ import 'package:okidoki/app/konusmalarim_page.dart';
 import 'package:okidoki/app/kullanicilar.dart';
 import 'package:okidoki/app/my_custom_bottom_navi.dart';
 import 'package:okidoki/app/profil.dart';
+import 'package:okidoki/app/search.dart';
 import 'package:okidoki/app/tab_items.dart';
 import 'package:okidoki/model/user.dart';
 import 'package:okidoki/notification_handler.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.Kullanicilar: GlobalKey<NavigatorState>(),
+    TabItem.Search: GlobalKey<NavigatorState>(),
     TabItem.Konusmalarim: GlobalKey<NavigatorState>(),
     TabItem.Profil: GlobalKey<NavigatorState>(),
   };
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context) => AllUserViewModel(),
         child: KullanicilarPage(),
       ),
+      TabItem.Search: SearchScreen(),
       TabItem.Konusmalarim: KonusmalarimPage(),
       TabItem.Profil: ProfilPage(),
     };

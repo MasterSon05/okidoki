@@ -44,6 +44,7 @@ class _MyCustomBottomNavigationState extends State<MyCustomBottomNavigation> {
       tabBar: CupertinoTabBar(
         items: [
           _navItemOlustur(TabItem.Kullanicilar),
+             _navItemOlustur(TabItem.Search),
           _navItemOlustur(TabItem.Konusmalarim),
           _navItemOlustur(TabItem.Profil),
         ],

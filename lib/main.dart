@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'OkiDoki',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
+          theme: ThemeData(        
             primarySwatch: Colors.deepPurple,
             accentColor: Colors.orange,
             cursorColor: Colors.orange,

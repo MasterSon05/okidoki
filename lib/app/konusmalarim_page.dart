@@ -52,6 +52,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                                   currentUser: _userModel.user,
                                   sohbetEdilenUser: User.idveResim(
                                       userID: oankiKonusma.kimleKonusuyor,
+                                      userName: oankiKonusma.konusulanUserName,
                                       profilURL:
                                           oankiKonusma.konusulanUserProfilURL)),
                               child: SohbetPage(),

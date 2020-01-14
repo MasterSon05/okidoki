@@ -40,7 +40,7 @@ class _SohbetPageState extends State<SohbetPage> {
             SizedBox(
               width: 10,
             ),
-            Text(_chatModel.sohbetEdilenUser.userName),
+            Text(_chatModel.sohbetEdilenUser.userName!=null?_chatModel.sohbetEdilenUser.userName:"loading"),
           ],
         ),
       ),

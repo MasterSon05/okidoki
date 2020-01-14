@@ -27,8 +27,6 @@ class FirebaseAuthService implements AuthBase {
   @override
   Future<bool> signOut() async {
     try {
-
-
       await _firebaseAuth.signOut();
       return true;
     } catch (e) {
@@ -47,8 +45,6 @@ class FirebaseAuthService implements AuthBase {
       return null;
     }
   }
-
-
 
   @override
   Future<User> createUserWithEmailandPassword(
