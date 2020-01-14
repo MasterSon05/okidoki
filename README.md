@@ -1,2 +1,2 @@
 # okidoki
-güncelleme
+Visual Studio Code üzerinden ikinci değişiklik!
