@@ -120,6 +120,7 @@ class NotificationHandler {
                 currentUser: _userModel.user,
                 sohbetEdilenUser: User.idveResim(
                     userID: gelenBildirim["data"]["gonderenUserID"],
+                    userName: gelenBildirim['data']['title'],
                     profilURL: gelenBildirim["data"]["profilURL"])),
             child: SohbetPage(),
           ),
