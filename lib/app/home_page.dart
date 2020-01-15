@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Map<TabItem, Widget> tumSayfalar() {
     return {
       TabItem.Kullanicilar: ChangeNotifierProvider(
-        builder: (context) => AllUserViewModel(),
+        create: (context) => AllUserViewModel(),
         child: KullanicilarPage(),
       ),
       TabItem.Search: SearchScreen(),

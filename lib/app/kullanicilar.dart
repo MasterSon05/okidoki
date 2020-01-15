@@ -104,7 +104,7 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
         Navigator.of(context, rootNavigator: true).push(
           MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              builder: (context) => ChatViewModel(
+              create: (context) => ChatViewModel(
                   currentUser: _userModel.user, sohbetEdilenUser: _oankiUser),
               child: SohbetPage(),
             ),

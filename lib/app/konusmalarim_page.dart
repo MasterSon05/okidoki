@@ -48,7 +48,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                         Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
                             builder: (context) => ChangeNotifierProvider(
-                              builder: (context) => ChatViewModel(
+                              create: (context) => ChatViewModel(
                                   currentUser: _userModel.user,
                                   sohbetEdilenUser: User.idveResim(
                                       userID: oankiKonusma.kimleKonusuyor,

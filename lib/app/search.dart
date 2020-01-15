@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               ChangeNotifierProvider(
-                                            builder: (context) => ChatViewModel(
+                                            create: (context) => ChatViewModel(
                                                 currentUser: _userModel.user,
                                                 sohbetEdilenUser:
                                                     User.idveResim(

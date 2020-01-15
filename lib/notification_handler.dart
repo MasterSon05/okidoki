@@ -116,7 +116,7 @@ class NotificationHandler {
       Navigator.of(myContext, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
-            builder: (context) => ChatViewModel(
+            create: (context) => ChatViewModel(
                 currentUser: _userModel.user,
                 sohbetEdilenUser: User.idveResim(
                     userID: gelenBildirim["data"]["gonderenUserID"],
