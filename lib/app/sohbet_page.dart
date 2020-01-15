@@ -34,13 +34,18 @@ class _SohbetPageState extends State<SohbetPage> {
       appBar: AppBar(
         title: Row(
           children: <Widget>[
-            CircleAvatar(
-                backgroundImage:
-                    NetworkImage(_chatModel.sohbetEdilenUser.profilURL)),
+            Hero(
+              tag: 'photo',
+              child: CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(_chatModel.sohbetEdilenUser.profilURL)),
+            ),
             SizedBox(
               width: 10,
             ),
-            Text(_chatModel.sohbetEdilenUser.userName!=null?_chatModel.sohbetEdilenUser.userName:"loading"),
+            Text(_chatModel.sohbetEdilenUser.userName != null
+                ? _chatModel.sohbetEdilenUser.userName
+                : "loading"),
           ],
         ),
       ),

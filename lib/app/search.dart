@@ -22,12 +22,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: 'Kullanıcı Adı Giriniz',
-            border: OutlineInputBorder(),
+        title: Container(
+          padding: const EdgeInsets.all(8.0),
+          height: 65,
+          child: TextField(
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.deepPurpleAccent,
+              hintText: 'Kullanıcı Adı Giriniz',
+              border: OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(16),
+              ),
+            ),
+            onChanged: (val) => initiateSearch(val),
           ),
-          onChanged: (val) => initiateSearch(val),
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -42,13 +51,16 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: CircularProgressIndicator(),
                   );
                 default:
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 70.0),
-                    child: ListView(
-                      children: snapshot.data.documents
-                          .map((DocumentSnapshot document) {
-                        return Center(
+                  return ListView(
+                  
+                    children: snapshot.data.documents
+                        .map((DocumentSnapshot document) {
+                      return Container(
+                    
+                         height: MediaQuery.of(context).size.height/1.3,
+                        child: Center(
                           child: Card(
+                            color: Theme.of(context).accentColor,
                             child: Container(
                               padding: EdgeInsets.all(20.0),
                               width: MediaQuery.of(context).size.width / 1.3,
@@ -60,9 +72,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                   Container(
                                     height: 150,
                                     width: 150,
-                                    child: CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(document['profilURL']),
+                                    child: Hero(
+                                             tag: 'photo',                             child: CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(document['profilURL']),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -89,14 +103,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                               ChangeNotifierProvider(
                                             create: (context) => ChatViewModel(
                                                 currentUser: _userModel.user,
-                                                sohbetEdilenUser:
-                                                    User.idveResim(
-                                                        userID:
-                                                            document['userID'],
-                                                        userName: document[
-                                                            'userName'],
-                                                        profilURL: document[
-                                                            'profilURL'])),
+                                                sohbetEdilenUser: User.idveResim(
+                                                    userID: document['userID'],
+                                                    userName:
+                                                        document['userName'],
+                                                    profilURL:
+                                                        document['profilURL'])),
                                             child: SohbetPage(),
                                           ),
                                         ),
@@ -107,9 +119,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                             ),
                           ),
-                        );
-                      }).toList(),
-                    ),
+                        ),
+                      );
+                    }).toList(),
                   );
               }
             } else {
