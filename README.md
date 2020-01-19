@@ -1,6 +1,6 @@
 # okidoki
 
-A new Flutter application.
+OkiDoki Chat App
 
 ## Getting Started
 

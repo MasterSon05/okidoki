@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:601098740175:android:154805bbc2efe1adcf32ba",
+        "mobilesdk_app_id": "1:601098740175:android:9a98b1d3b445d457cf32ba",
         "android_client_info": {
-          "package_name": "masterson.com.okidoki"
+          "package_name": "com.masterson.okidoki"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "601098740175-n1dq0ni9ueo5bneebf48l1i20fb4cat2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "masterson.com.okidoki",
-            "certificate_hash": "052c83ec087e019d3d16fa57f91074b2cd459adf"
-          }
-        },
         {
           "client_id": "601098740175-b92nsbakbclr3pvgf5g2l3df9o2j3bvk.apps.googleusercontent.com",
           "client_type": 3
@@ -38,6 +30,49 @@
             {
               "client_id": "601098740175-b92nsbakbclr3pvgf5g2l3df9o2j3bvk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "601098740175-beea26s9tuimp9rkfp4ik6187i4vl0to.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "masterson.com.okidoki"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601098740175:android:154805bbc2efe1adcf32ba",
+        "android_client_info": {
+          "package_name": "masterson.com.okidoki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601098740175-b92nsbakbclr3pvgf5g2l3df9o2j3bvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzVawq3rcDVNgnVpkmbUyhb7WtRh_776A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601098740175-b92nsbakbclr3pvgf5g2l3df9o2j3bvk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "601098740175-beea26s9tuimp9rkfp4ik6187i4vl0to.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "masterson.com.okidoki"
+              }
             }
           ]
         }
