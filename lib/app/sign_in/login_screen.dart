@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:okidoki/app/landing_page.dart';
 
 import 'package:okidoki/model/user.dart';
 import 'package:okidoki/viewmodel/user_model.dart';
@@ -51,10 +52,14 @@ class _LoginScreenState extends State<LoginScreen> {
     final _userModel = Provider.of<UserModel>(context);
 
     if (_userModel.user != null) {
-      Future.delayed(Duration(milliseconds: 1), () {
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
-      });
+      Future.delayed(Duration(milliseconds: 750), () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => LandingPage(),
+        ));
+      //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      }); 
     }
+    
 
     return FlutterLogin(
       title: 'OkiDoki',
@@ -71,7 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
         return _createUser(loginData);
       },
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
+        Future.delayed(Duration(milliseconds: 1), () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => LandingPage(),
+        ));
+      //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      });
       },
       onRecoverPassword: (_) => Future(null),
     );

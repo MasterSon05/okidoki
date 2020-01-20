@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:okidoki/app/konusmalarim_page.dart';
 import 'package:okidoki/app/kullanicilar.dart';
 import 'package:okidoki/app/my_custom_bottom_navi.dart';
@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TabItem _currentTab = TabItem.Kullanicilar;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.Kullanicilar: GlobalKey<NavigatorState>(),

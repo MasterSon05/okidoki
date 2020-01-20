@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:okidoki/app/sohbet_page.dart';
 import 'package:okidoki/model/user.dart';
@@ -52,7 +52,6 @@ class NotificationHandler {
         onSelectNotification: onSelectNotification);
 
     /*_fcm.subscribeToTopic("spor");
-
     String token = await _fcm.getToken();
     print("token :" + token);
     */
@@ -116,11 +115,10 @@ class NotificationHandler {
       Navigator.of(myContext, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
-            create: (context) => ChatViewModel(
+            builder: (context) => ChatViewModel(
                 currentUser: _userModel.user,
                 sohbetEdilenUser: User.idveResim(
                     userID: gelenBildirim["data"]["gonderenUserID"],
-                    userName: gelenBildirim['data']['title'],
                     profilURL: gelenBildirim["data"]["profilURL"])),
             child: SohbetPage(),
           ),

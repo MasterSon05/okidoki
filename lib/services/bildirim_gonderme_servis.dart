@@ -7,7 +7,7 @@ class BildirimGondermeServis {
       Mesaj gonderilecekBildirim, User gonderenUser, String token) async {
     String endURL = "https://fcm.googleapis.com/fcm/send";
     String firebaseKey =
-        "AAAAazL8mbM:APA91bEf09Tjw4AgwXYXEVaZYuvT_vw0ax-nPXOMqABZzJx2fl4ssfiA3D0X8vL2ivvv0pbDVcGzUuP04yKFF_iLMTlL2EKDAIy_GvD_Y1AXcSZKPKad37DCdwN6Gya4r5SVgzkormBz";
+        "AAAAi_RG4c8:APA91bFuzFFOP8n1h7L2A4xe3aBLxclNajr3scXZHDlFEilOiuLgaflDRd_yJ6EzJEDKL1SXfqusiyrVwgtVDDV9YC9apXYk9MqmWZbsxGCnyjTbrjTxyX-Qgv5gRKrV2q9ttomaplEb";
     Map<String, String> headers = {
       "Content-type": "application/json",
       "Authorization": "key=$firebaseKey"
