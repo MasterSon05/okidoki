@@ -69,7 +69,7 @@ class NotificationHandler {
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
-        //print("onLaunch tetiklendi: $message");
+        //print("onLaunch. tetiklendi: $message");
       },
       onResume: (Map<String, dynamic> message) async {
         // print("onResume tetiklendi: $message");
