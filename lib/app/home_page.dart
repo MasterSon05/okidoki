@@ -21,24 +21,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.Kullanicilar;
+  TabItem _currentTab = TabItem.Konusmalarim;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.Kullanicilar: GlobalKey<NavigatorState>(),
-    TabItem.Search: GlobalKey<NavigatorState>(),
     TabItem.Konusmalarim: GlobalKey<NavigatorState>(),
+    TabItem.Search: GlobalKey<NavigatorState>(),
+  //  TabItem.Kullanicilar: GlobalKey<NavigatorState>(),
     TabItem.Profil: GlobalKey<NavigatorState>(),
   };
 
   Map<TabItem, Widget> tumSayfalar() {
     return {
-      TabItem.Kullanicilar: ChangeNotifierProvider(
+      TabItem.Konusmalarim: KonusmalarimPage(),
+      TabItem.Search: SearchScreen(),
+    /*  TabItem.Kullanicilar: ChangeNotifierProvider(
         create: (context) => AllUserViewModel(),
         child: KullanicilarPage(),
-      ),
-      TabItem.Search: SearchScreen(),
-      TabItem.Konusmalarim: KonusmalarimPage(),
+      ),*/
       TabItem.Profil: ProfilPage(),
     };
   }

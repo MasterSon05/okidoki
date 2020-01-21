@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:okidoki/app/tab_items.dart';
 
-
 class MyCustomBottomNavigation extends StatefulWidget {
   const MyCustomBottomNavigation(
       {Key key,
@@ -25,16 +24,13 @@ class MyCustomBottomNavigation extends StatefulWidget {
 class _MyCustomBottomNavigationState extends State<MyCustomBottomNavigation> {
   @override
   void initState() {
-
     super.initState();
 
-
-    //myBannerAd.load();
+   
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -43,9 +39,9 @@ class _MyCustomBottomNavigationState extends State<MyCustomBottomNavigation> {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: [
-          _navItemOlustur(TabItem.Kullanicilar),
-             _navItemOlustur(TabItem.Search),
           _navItemOlustur(TabItem.Konusmalarim),
+          _navItemOlustur(TabItem.Search),
+         // _navItemOlustur(TabItem.Kullanicilar),
           _navItemOlustur(TabItem.Profil),
         ],
         onTap: (index) => widget.onSelectedTab(TabItem.values[index]),

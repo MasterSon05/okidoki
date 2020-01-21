@@ -113,6 +113,7 @@ class _SohbetPageState extends State<SohbetPage> {
               horizontal: 4,
             ),
             child: FloatingActionButton(
+              backgroundColor: Colors.deepPurple,
               elevation: 0,
               child: Icon(
                 Icons.send,
