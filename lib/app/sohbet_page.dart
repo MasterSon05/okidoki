@@ -67,19 +67,23 @@ class _SohbetPageState extends State<SohbetPage> {
   Widget _buildMesajListesi() {
     return Consumer<ChatViewModel>(builder: (context, chatModel, child) {
       return Expanded(
-        child: ListView.builder(
-          controller: _scrollController,
-          reverse: true,
-          itemBuilder: (context, index) {
-            if (chatModel.hasMoreLoading &&
-                chatModel.mesajlarListesi.length == index) {
-              return _yeniElemanlarYukleniyorIndicator();
-            } else
-              return _konusmaBalonuOlustur(chatModel.mesajlarListesi[index]);
-          },
-          itemCount: chatModel.hasMoreLoading
-              ? chatModel.mesajlarListesi.length + 1
-              : chatModel.mesajlarListesi.length,
+        
+        child: Container(
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/chatback.png",),fit: BoxFit.cover)),
+          child: ListView.builder(
+            controller: _scrollController,
+            reverse: true,
+            itemBuilder: (context, index) {
+              if (chatModel.hasMoreLoading &&
+                  chatModel.mesajlarListesi.length == index) {
+                return _yeniElemanlarYukleniyorIndicator();
+              } else
+                return _konusmaBalonuOlustur(chatModel.mesajlarListesi[index]);
+            },
+            itemCount: chatModel.hasMoreLoading
+                ? chatModel.mesajlarListesi.length + 1
+                : chatModel.mesajlarListesi.length,
+          ),
         ),
       );
     });

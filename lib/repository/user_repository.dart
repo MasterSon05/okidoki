@@ -198,11 +198,11 @@ class UserRepository implements AuthBase {
   void timeagoHesapla(Konusma oankiKonusma, DateTime zaman) {
     oankiKonusma.sonOkunmaZamani = zaman;
 
-    timeago.setLocaleMessages("tr", timeago.TrMessages());
+    timeago.setLocaleMessages("en", timeago.EnMessages());
 
     var _duration = zaman.difference(oankiKonusma.olusturulmaTarihi.toDate());
     oankiKonusma.aradakiFark =
-        timeago.format(zaman.subtract(_duration), locale: "tr");
+        timeago.format(zaman.subtract(_duration), locale: "en");
   }
 
   Future<List<User>> getUserwithPagination(
