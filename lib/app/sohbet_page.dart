@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:okidoki/app/ana_dil_secimi_page.dart';
+import 'package:okidoki/app/trans_dil_secimi_page.dart';
+import 'package:okidoki/model/dil.dart';
 import 'package:okidoki/model/mesaj.dart';
 import 'package:okidoki/viewmodel/chat_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:bubble/bubble.dart';
+
 
 class SohbetPage extends StatefulWidget {
   @override
@@ -49,27 +54,87 @@ class _SohbetPageState extends State<SohbetPage> {
           ],
         ),
       ),
-      body: _chatModel.state == ChatViewState.Busy
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Center(
-              child: Column(
-                children: <Widget>[
-                  _buildMesajListesi(),
-                  _buildYeniMesajGir(),
-                ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage(
+            "assets/images/chatback.png",
+          ),
+          fit: BoxFit.cover,
+          colorFilter: new ColorFilter.mode(
+              Colors.black.withOpacity(0.2), BlendMode.dstATop),
+        )),
+        child: _chatModel.state == ChatViewState.Busy
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Center(
+                child: Column(
+                  children: <Widget>[
+                    _buildDilSecimi(),
+                    _buildMesajListesi(),
+                    _buildYeniMesajGir(),
+                  ],
+                ),
               ),
+      ),
+    );
+  }
+
+  Widget _buildDilSecimi() {
+    return Container(
+      height: 50,
+      color: Theme.of(context).accentColor,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+                      child: FlatButton(
+              child: Text(
+                transDil.dilAdi,
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) => TransDilSecimiPage()));
+              },
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.swap_horiz,size: 30,),
+            onPressed: () {
+              setState(() {
+                  var geciciDil = anaDil;
+              anaDil = transDil;
+              transDil = geciciDil;
+              });
+            
+            },
+          ),
+          Expanded(
+                      child: FlatButton(
+              child: Text(
+               anaDil.dilAdi,
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                 Navigator.of(context).push(MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) => AnaDilSecimiPage()));
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildMesajListesi() {
     return Consumer<ChatViewModel>(builder: (context, chatModel, child) {
       return Expanded(
-        
         child: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/chatback.png",),fit: BoxFit.cover)),
           child: ListView.builder(
             controller: _scrollController,
             reverse: true,
@@ -92,11 +157,16 @@ class _SohbetPageState extends State<SohbetPage> {
   Widget _buildYeniMesajGir() {
     final _chatModel = Provider.of<ChatViewModel>(context);
     return Container(
-      padding: EdgeInsets.only(bottom: 8, left: 8),
+      color: Theme.of(context).accentColor,
+      padding: EdgeInsets.only(bottom: 8, left: 8, top: 4),
       child: Row(
         children: <Widget>[
           Expanded(
             child: TextField(
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
+              maxLines: 5,
+              minLines: 1,
               controller: _mesajController,
               cursorColor: Colors.blueGrey,
               style: new TextStyle(
@@ -105,10 +175,11 @@ class _SohbetPageState extends State<SohbetPage> {
               ),
               decoration: InputDecoration(
                 filled: true,
-                hintText: "Mesajınızı Yazın",
+                fillColor: Colors.deepPurpleAccent[100],
+                hintText: "Write Your Message",
                 border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(30.0),
-                    borderSide: BorderSide.none),
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
               ),
             ),
           ),
@@ -154,7 +225,7 @@ class _SohbetPageState extends State<SohbetPage> {
   }
 
   Widget _konusmaBalonuOlustur(Mesaj oankiMesaj) {
-    Color _gelenMesajRenk = Colors.blue;
+    Color _gelenMesajRenk = Theme.of(context).accentColor;
     Color _gidenMesajRenk = Theme.of(context).primaryColor;
     final _chatModel = Provider.of<ChatViewModel>(context);
     var _saatDakikaDegeri = "";
@@ -175,7 +246,30 @@ class _SohbetPageState extends State<SohbetPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Flexible(
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.4,
+                  child: Bubble(
+                    shadowColor: Colors.purpleAccent,
+                    elevation: 5,
+                    alignment: Alignment.topRight,
+                    nip: BubbleNip.rightBottom,
+                    color: _gidenMesajRenk,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          oankiMesaj.mesaj,
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        Text(
+                          _saatDakikaDegeri,
+                          style: TextStyle(color: Colors.white, fontSize: 9),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                /* Flexible(
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
@@ -188,8 +282,8 @@ class _SohbetPageState extends State<SohbetPage> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                ),
-                Text(_saatDakikaDegeri),
+                ),*/
+                // Text(_saatDakikaDegeri),
               ],
             ),
           ],
@@ -202,13 +296,31 @@ class _SohbetPageState extends State<SohbetPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: Colors.grey.withAlpha(40),
-                  backgroundImage:
-                      NetworkImage(_chatModel.sohbetEdilenUser.profilURL),
-                ),
                 Flexible(
                   child: Container(
+                    width: MediaQuery.of(context).size.width / 1.4,
+                    child: Bubble(
+                      shadowColor: _gelenMesajRenk,
+                      elevation: 5,
+                      alignment: Alignment.topLeft,
+                      nip: BubbleNip.leftTop,
+                      color: _gelenMesajRenk,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text(
+                            oankiMesaj.mesaj,
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                          ),
+                          Text(
+                            _saatDakikaDegeri,
+                            style: TextStyle(color: Colors.black, fontSize: 9),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  /*  child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: _gelenMesajRenk,
@@ -216,9 +328,9 @@ class _SohbetPageState extends State<SohbetPage> {
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.all(4),
                     child: Text(oankiMesaj.mesaj),
-                  ),
+                  ),*/
                 ),
-                Text(_saatDakikaDegeri),
+                //   Text(_saatDakikaDegeri),
               ],
             )
           ],

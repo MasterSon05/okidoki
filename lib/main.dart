@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:okidoki/app/landing_page.dart';
 import 'package:okidoki/locator.dart';
+import 'package:okidoki/model/dil.dart';
 import 'package:okidoki/viewmodel/user_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   setupLocator();
-  runApp(MyApp());
+  runApp(MyApp()); 
 }
+
+
 
 class MyApp extends StatelessWidget {
   @override

@@ -1,4 +1,4 @@
- import 'dart:io';
+import 'dart:io';
 
 import 'package:okidoki/locator.dart';
 import 'package:okidoki/model/konusma.dart';
@@ -58,9 +58,6 @@ class UserRepository implements AuthBase {
       return await _firebaseAuthService.singInAnonymously();
     }
   }
-
-  
-
 
   @override
   Future<User> createUserWithEmailandPassword(
@@ -200,9 +197,11 @@ class UserRepository implements AuthBase {
 
     timeago.setLocaleMessages("en", timeago.EnMessages());
 
-    var _duration = zaman.difference(oankiKonusma.olusturulmaTarihi.toDate());
-    oankiKonusma.aradakiFark =
-        timeago.format(zaman.subtract(_duration), locale: "en");
+    var _duration = zaman != null
+        ? zaman.difference(oankiKonusma.olusturulmaTarihi.toDate())
+        : null;
+    oankiKonusma.aradakiFark = timeago
+        .format(zaman != null ? zaman.subtract(_duration) : null, locale: "en");
   }
 
   Future<List<User>> getUserwithPagination(
@@ -230,4 +229,3 @@ class UserRepository implements AuthBase {
     }
   }
 }
-

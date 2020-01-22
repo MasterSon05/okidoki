@@ -169,7 +169,8 @@ class FirestoreDBService implements DBBase {
     var okunanMap =
         await _firebaseDB.collection("server").document(userID).get();
     Timestamp okunanTarih = await okunanMap.data["saat"];
-    DateTime okunanTarihDuzeltme = okunanTarih.toDate();
+    DateTime okunanTarihDuzeltme =
+        okunanTarih != null ? okunanTarih.toDate() : null;
     return okunanTarihDuzeltme;
   }
 
