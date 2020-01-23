@@ -8,7 +8,7 @@ import 'package:okidoki/viewmodel/chat_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:bubble/bubble.dart';
-
+import 'package:translator/translator.dart';
 
 class SohbetPage extends StatefulWidget {
   @override
@@ -16,9 +16,11 @@ class SohbetPage extends StatefulWidget {
 }
 
 class _SohbetPageState extends State<SohbetPage> {
-  var _mesajController = TextEditingController();
+  TextEditingController _mesajController = TextEditingController();
+  TextEditingController _ceviriMesajController = TextEditingController();
   ScrollController _scrollController = new ScrollController();
   bool _isLoading = false;
+  bool sendingOK = false;
 
   @override
   void initState() {
@@ -34,6 +36,9 @@ class _SohbetPageState extends State<SohbetPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_mesajController.text == "") {
+      _ceviriMesajController.text = "";
+    }
     final _chatModel = Provider.of<ChatViewModel>(context);
     return Scaffold(
       appBar: AppBar(
@@ -90,8 +95,8 @@ class _SohbetPageState extends State<SohbetPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
-                      child: FlatButton(
-              child: Text(
+            child: FlatButton(
+              child: Text(transDil.dilEmo+
                 transDil.dilAdi,
                 style: TextStyle(fontSize: 18),
               ),
@@ -103,24 +108,27 @@ class _SohbetPageState extends State<SohbetPage> {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.swap_horiz,size: 30,),
+            icon: Icon(
+              Icons.swap_horiz,
+              size: 30,
+            ),
             onPressed: () {
               setState(() {
-                  var geciciDil = anaDil;
-              anaDil = transDil;
-              transDil = geciciDil;
+                var geciciDil = anaDil;
+                anaDil = transDil;
+                transDil = geciciDil;
               });
-            
             },
           ),
           Expanded(
-                      child: FlatButton(
+            child: FlatButton(
               child: Text(
-               anaDil.dilAdi,
+                anaDil.dilEmo+
+                anaDil.dilAdi,
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                 Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                     fullscreenDialog: true,
                     builder: (context) => AnaDilSecimiPage()));
               },
@@ -156,72 +164,284 @@ class _SohbetPageState extends State<SohbetPage> {
 
   Widget _buildYeniMesajGir() {
     final _chatModel = Provider.of<ChatViewModel>(context);
-    return Container(
-      color: Theme.of(context).accentColor,
-      padding: EdgeInsets.only(bottom: 8, left: 8, top: 4),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              keyboardType: TextInputType.multiline,
-              textInputAction: TextInputAction.newline,
-              maxLines: 5,
-              minLines: 1,
-              controller: _mesajController,
-              cursorColor: Colors.blueGrey,
-              style: new TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.deepPurpleAccent[100],
-                hintText: "Write Your Message",
-                border: new OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 4,
-            ),
-            child: FloatingActionButton(
-              backgroundColor: Colors.deepPurple,
-              elevation: 0,
-              child: Icon(
-                Icons.send,
-                size: 35,
-                color: Colors.white,
-              ),
-              onPressed: () async {
-                if (_mesajController.text.trim().length > 0) {
-                  Mesaj _kaydedilecekMesaj = Mesaj(
-                    kimden: _chatModel.currentUser.userID,
-                    kime: _chatModel.sohbetEdilenUser.userID,
-                    bendenMi: true,
-                    konusmaSahibi: _chatModel.currentUser.userID,
-                    mesaj: _mesajController.text,
-                  );
+    return sendingOK
+        ? Container(
+            color: Theme.of(context).accentColor,
+            padding: EdgeInsets.only(bottom: 8, left: 8, top: 4),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      TextField(
+                        readOnly: true,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        maxLines: 5,
+                        minLines: 1,
+                        controller: _ceviriMesajController,
+                        cursorColor: Colors.blueGrey,
+                        style: new TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        ),
+                        decoration: InputDecoration(
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: Text(
+                              anaDil.dilEmo,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          suffixIcon: Container(
+                            padding: EdgeInsets.only(right: 2),
+                            height: 20,
+                            child: FloatingActionButton(
+                              heroTag: "ceviri",
+                              backgroundColor: Colors.deepPurple,
+                              elevation: 0,
+                              child: Icon(
+                                Icons.send,
+                                size: 35,
+                                color: Colors.white,
+                              ),
+                              onPressed: () async {
+                                if (_ceviriMesajController.text.trim().length >
+                                    0) {
+                                  Mesaj _kaydedilecekMesaj = Mesaj(
+                                    kimden: _chatModel.currentUser.userID,
+                                    kime: _chatModel.sohbetEdilenUser.userID,
+                                    bendenMi: true,
+                                    konusmaSahibi:
+                                        _chatModel.currentUser.userID,
+                                    mesaj: _ceviriMesajController.text,
+                                  );
+                                  WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => _mesajController.clear());
 
-                  var sonuc = await _chatModel.saveMessage(
-                      _kaydedilecekMesaj, _chatModel.currentUser);
-                  if (sonuc) {
-                    _mesajController.clear();
-                    _scrollController.animateTo(
-                      0,
-                      curve: Curves.easeOut,
-                      duration: const Duration(milliseconds: 10),
-                    );
-                  }
-                }
-              },
+                                  WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => _ceviriMesajController.clear());
+                                  var sonuc = await _chatModel.saveMessage(
+                                      _kaydedilecekMesaj,
+                                      _chatModel.currentUser);
+                                  if (sonuc) {
+                                    _scrollController.animateTo(
+                                      0,
+                                      curve: Curves.easeOut,
+                                      duration:
+                                          const Duration(milliseconds: 10),
+                                    );
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Colors.deepPurpleAccent[100],
+                          hintText: "Write Your Message",
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      TextField(
+                        onChanged: (val) => sendingCeviri(val),
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        maxLines: 5,
+                        minLines: 1,
+                        controller: _mesajController,
+                        cursorColor: Colors.blueGrey,
+                        style: new TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        ),
+                        decoration: InputDecoration(
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: Text(
+                              transDil.dilEmo,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          suffixIcon: Container(
+                            padding: EdgeInsets.only(right: 2),
+                            height: 20,
+                            child: FloatingActionButton(
+                              heroTag: "mesaj",
+                              backgroundColor: Colors.deepPurple,
+                              elevation: 0,
+                              child: Icon(
+                                Icons.send,
+                                size: 35,
+                                color: Colors.white,
+                              ),
+                              onPressed: () async {
+                                if (_mesajController.text.trim().length > 0) {
+                                  Mesaj _kaydedilecekMesaj = Mesaj(
+                                    kimden: _chatModel.currentUser.userID,
+                                    kime: _chatModel.sohbetEdilenUser.userID,
+                                    bendenMi: true,
+                                    konusmaSahibi:
+                                        _chatModel.currentUser.userID,
+                                    mesaj: _mesajController.text,
+                                  );
+                                  WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => _mesajController.clear());
+
+                                  WidgetsBinding.instance.addPostFrameCallback(
+                                      (_) => _ceviriMesajController.clear());
+
+                                  var sonuc = await _chatModel.saveMessage(
+                                      _kaydedilecekMesaj,
+                                      _chatModel.currentUser);
+                                  if (sonuc) {
+                                    _scrollController.animateTo(
+                                      0,
+                                      curve: Curves.easeOut,
+                                      duration:
+                                          const Duration(milliseconds: 10),
+                                    );
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                          filled: true,
+                          fillColor: Colors.deepPurpleAccent[100],
+                          hintText: "Write Your Message",
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 4,
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "gerial",
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.translate,
+                      size: 27,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        sendingOK = false;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          )
+        : Container(
+            color: Theme.of(context).accentColor,
+            padding: EdgeInsets.only(bottom: 8, left: 8, top: 4),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: 5,
+                    minLines: 1,
+                    controller: _mesajController,
+                    cursorColor: Colors.blueGrey,
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      suffixIcon: Container(
+                        padding: EdgeInsets.only(right: 2),
+                        height: 20,
+                        child: FloatingActionButton(
+                          heroTag: "ceviriyegec",
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.translate,
+                            size: 27,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              sendingOK = true;
+                            });
+                          },
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.deepPurpleAccent[100],
+                      hintText: "Write Your Message",
+                      border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 4,
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "send",
+                    backgroundColor: Colors.deepPurple,
+                    elevation: 0,
+                    child: Icon(
+                      Icons.send,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      if (_mesajController.text.trim().length > 0) {
+                        Mesaj _kaydedilecekMesaj = Mesaj(
+                          kimden: _chatModel.currentUser.userID,
+                          kime: _chatModel.sohbetEdilenUser.userID,
+                          bendenMi: true,
+                          konusmaSahibi: _chatModel.currentUser.userID,
+                          mesaj: _mesajController.text,
+                        );
+                        WidgetsBinding.instance.addPostFrameCallback(
+                            (_) => _mesajController.clear());
+
+                        WidgetsBinding.instance.addPostFrameCallback(
+                            (_) => _ceviriMesajController.clear());
+
+                        var sonuc = await _chatModel.saveMessage(
+                            _kaydedilecekMesaj, _chatModel.currentUser);
+                        if (sonuc) {
+                          _scrollController.animateTo(
+                            0,
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 10),
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+  }
+
+  sendingCeviri(val) {
+    setState(() async {
+      if (_mesajController.text == "") {
+        _ceviriMesajController.text = "";
+      } else if (_mesajController.text.length > 1) {
+        _ceviriMesajController.text = await _ceviriYap(val);
+      } else {
+        _ceviriMesajController.text = "";
+      }
+    });
   }
 
   Widget _konusmaBalonuOlustur(Mesaj oankiMesaj) {
@@ -299,26 +519,10 @@ class _SohbetPageState extends State<SohbetPage> {
                 Flexible(
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.4,
-                    child: Bubble(
-                      shadowColor: _gelenMesajRenk,
-                      elevation: 5,
-                      alignment: Alignment.topLeft,
-                      nip: BubbleNip.leftTop,
-                      color: _gelenMesajRenk,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            oankiMesaj.mesaj,
-                            style: TextStyle(color: Colors.black, fontSize: 16),
-                          ),
-                          Text(
-                            _saatDakikaDegeri,
-                            style: TextStyle(color: Colors.black, fontSize: 9),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: GelenMesajBalonu(
+                        gelenMesajRenk: _gelenMesajRenk,
+                        saatDakikaDegeri: _saatDakikaDegeri,
+                        oankiMesaj: oankiMesaj),
                   ),
                   /*  child: Container(
                     decoration: BoxDecoration(
@@ -371,4 +575,101 @@ class _SohbetPageState extends State<SohbetPage> {
       ),
     );
   }
+}
+
+class GelenMesajBalonu extends StatefulWidget {
+  const GelenMesajBalonu({
+    Key key,
+    @required Color gelenMesajRenk,
+    @required String saatDakikaDegeri,
+    @required Mesaj oankiMesaj,
+  })  : _gelenMesajRenk = gelenMesajRenk,
+        _saatDakikaDegeri = saatDakikaDegeri,
+        _oankiMesaj = oankiMesaj,
+        super(key: key);
+
+  final Color _gelenMesajRenk;
+  final String _saatDakikaDegeri;
+  final Mesaj _oankiMesaj;
+
+  @override
+  _GelenMesajBalonuState createState() => _GelenMesajBalonuState();
+}
+
+class _GelenMesajBalonuState extends State<GelenMesajBalonu> {
+  bool cevrildi = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (cevrildi) {
+          setState(() {
+            cevrildi = false;
+          });
+        } else {
+          setState(() {
+            cevrildi = true;
+          });
+        }
+      },
+      child: Bubble(
+        shadowColor: widget._gelenMesajRenk,
+        elevation: 5,
+        alignment: Alignment.topLeft,
+        nip: BubbleNip.leftTop,
+        color: widget._gelenMesajRenk,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            cevrildi
+                ? FutureBuilder<String>(
+                    future: _ceviriYap(widget._oankiMesaj.mesaj),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          transDil.dilEmo +
+                              ": " +
+                              widget._oankiMesaj.mesaj +
+                              "\n" +
+                              anaDil.dilEmo +
+                              ": " +
+                              snapshot.data.toString(),
+                          style: TextStyle(color: Colors.black, fontSize: 16),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("Error",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16));
+                      } else {
+                        return Text("Loading",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16));
+                      }
+                    })
+                : Text(
+                    widget._oankiMesaj.mesaj,
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+            Text(
+              widget._saatDakikaDegeri,
+              style: TextStyle(color: Colors.black, fontSize: 9),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Future<String> _ceviriYap(String gelenMetin) async {
+  final translator = GoogleTranslator();
+  String cevirilenMetin;
+
+  var translation = await translator.translate(gelenMetin,
+      from: transDil.dilCode, to: anaDil.dilCode);
+  cevirilenMetin = translation;
+
+  return cevirilenMetin;
 }

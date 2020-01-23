@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 final dilList = new DilList(diller: [
-  Dil(dilAdi: "Türkçe", dilEmo: "tr", dilCode: "tr"),
-  Dil(dilAdi: "İngilizce", dilEmo: "en", dilCode: "en"),
-  Dil(dilAdi: "İngilizce", dilEmo: "en", dilCode: "en"),
-  Dil(dilAdi: "İngilizce", dilEmo: "en", dilCode: "en"),
-  Dil(dilAdi: "İngilizce", dilEmo: "en", dilCode: "en")
+  Dil(dilAdi: "Türkçe", dilEmo: "🇹🇷", dilCode: "tr"),
+  Dil(dilAdi: "İngilizce", dilEmo: "🇬🇧", dilCode: "en"),
+  Dil(dilAdi: "Almanca", dilEmo: "🇩🇪", dilCode: "de"),
+  Dil(dilAdi: "Rusça", dilEmo: "🇷🇺", dilCode: "ru"),
+  Dil(dilAdi: "İspanyolca", dilEmo: "🇪🇸", dilCode: "es"),
+  Dil(dilAdi: "Çince", dilEmo: "🇨🇳", dilCode: "zh-cn"),
+   Dil(dilAdi: "Japonca", dilEmo: "🇯🇵", dilCode: "ja"),
+    Dil(dilAdi: "İtalyanca", dilEmo: "🇮🇹", dilCode: "it"),
 ]);
 
 class DilList {
@@ -28,5 +31,5 @@ class Dil {
   });
 }
 
-Dil anaDil = Dil(dilAdi: "Türkçe", dilEmo: "tr", dilCode: "tr");
-Dil transDil = Dil(dilAdi: "İngilizce", dilEmo: "tr", dilCode: "tr");
+Dil anaDil = Dil(dilAdi: "Türkçe", dilEmo: "🇹🇷", dilCode: "tr");
+Dil transDil = Dil(dilAdi: "İngilizce", dilEmo: "🇬🇧", dilCode: "en");
