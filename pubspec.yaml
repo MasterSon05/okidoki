@@ -38,6 +38,7 @@ dependencies:
   flutter_login: ^1.0.10+1
   bubble: ^1.1.9+1
   translator: ^0.1.4
+  avatar_glow: ^1.1.0
 
 
 dev_dependencies:

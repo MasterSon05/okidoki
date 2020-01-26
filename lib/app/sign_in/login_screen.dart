@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:okidoki/app/landing_page.dart';
+import 'package:okidoki/app/sign_in/siign_up_username_config.dart';
 
 import 'package:okidoki/model/user.dart';
 import 'package:okidoki/viewmodel/user_model.dart';
@@ -28,7 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } on PlatformException catch (e) {
       return 'email or password is wrong';
     }
-    return null;
+    return Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => LandingPage(),
+    ));
   }
 
   Future<String> _createUser(LoginData data) async {
@@ -44,7 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } on PlatformException catch (e) {
       return 'email already in use ';
     }
-    return null;
+    return Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => UserNameConfig(),
+    ));
   }
 
   @override
@@ -53,13 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (_userModel.user != null) {
       Future.delayed(Duration(milliseconds: 750), () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => LandingPage(),
-        ));
-      //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
-      }); 
+        //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      });
     }
-    
 
     return FlutterLogin(
       title: 'OkiDoki',
@@ -75,15 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
         print('Password: ${loginData.password}');
         return _createUser(loginData);
       },
+      
       onSubmitAnimationCompleted: () {
         Future.delayed(Duration(milliseconds: 1), () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => LandingPage(),
-        ));
-      //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
-      });
+            builder: (context) => LandingPage(),
+          ));
+          //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
+        });
       },
       onRecoverPassword: (_) => Future(null),
+      
     );
   }
 }
