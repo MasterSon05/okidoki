@@ -48,9 +48,12 @@ class _SohbetPageState extends State<SohbetPage> {
               tag: 'photo',
               child: CircleAvatar(
                 child: ClipOval(
-                    child: FadeInImage.assetNetwork(
-                  image: _chatModel.sohbetEdilenUser.profilURL,
-                  placeholder: "assets/images/profile.png",
+                    child: Align(
+                  heightFactor: 1,
+                  child: FadeInImage.assetNetwork(
+                    image: _chatModel.sohbetEdilenUser.profilURL,
+                    placeholder: "assets/images/profile.png",
+                  ),
                 )),
               ),
             ),

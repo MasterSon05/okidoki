@@ -18,10 +18,9 @@ class _ProfilPageState extends State<ProfilPage> {
 
   @override
   void initState() {
-
     super.initState();
     _controllerUserName = TextEditingController();
-     }
+  }
 
   @override
   void dispose() {
@@ -103,11 +102,19 @@ class _ProfilPageState extends State<ProfilPage> {
                     radius: 75,
                     backgroundColor: Colors.white,
                     child: ClipOval(
-                      child:_profilFoto == null
-                        ? FadeInImage.assetNetwork(image:_userModel.user.profilURL, placeholder: "assets/images/profile.png",)
-                        : FileImage(_profilFoto), 
-                    ),
-                 
+                        child: Align(
+                          heightFactor: 1,
+                        
+                      child: _profilFoto == null
+                          ? FadeInImage.assetNetwork(
+                              image: _userModel.user.profilURL,
+                              placeholder: "assets/images/profile.png",
+                            )
+                          : Image(
+                              image: FileImage(_profilFoto),
+                              
+                            ),
+                    )),
                   ),
                 ),
               ),
@@ -161,9 +168,9 @@ class _ProfilPageState extends State<ProfilPage> {
   Future _cikisIcinOnayIste(BuildContext context) async {
     final sonuc = await PlatformDuyarliAlertDialog(
       baslik: "Emin Misiniz?",
-      icerik: "Çıkmak istediğinizden emin misiniz?",
-      anaButonYazisi: "Evet",
-      iptalButonYazisi: "Vazgeç",
+      icerik: "Are you sure you want to quit?",
+      anaButonYazisi: "Accept",
+      iptalButonYazisi: "Cancel",
     ).goster(context);
 
     if (sonuc == true) {
@@ -179,16 +186,16 @@ class _ProfilPageState extends State<ProfilPage> {
 
       if (updateResult == true) {
         PlatformDuyarliAlertDialog(
-          baslik: "Başarılı",
-          icerik: "Username değiştirildi",
-          anaButonYazisi: 'Tamam',
+          baslik: "Successful",
+          icerik: "Username changed successfully",
+          anaButonYazisi: 'OK',
         ).goster(context);
       } else {
         _controllerUserName.text = _userModel.user.userName;
         PlatformDuyarliAlertDialog(
-          baslik: "Hata",
-          icerik: "Username zaten kullanımda, farklı bir username deneyiniz",
-          anaButonYazisi: 'Tamam',
+          baslik: "Error",
+          icerik: "Username already in use",
+          anaButonYazisi: 'OK',
         ).goster(context);
       }
     }
@@ -203,9 +210,9 @@ class _ProfilPageState extends State<ProfilPage> {
 
       if (url != null) {
         PlatformDuyarliAlertDialog(
-          baslik: "Başarılı",
-          icerik: "Profil fotoğrafınız güncellendi",
-          anaButonYazisi: 'Tamam',
+          baslik: "Successful",
+          icerik: "Profile photo changed successfully",
+          anaButonYazisi: 'OK',
         ).goster(context);
       }
     }

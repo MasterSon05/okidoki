@@ -92,12 +92,16 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                                   ],
                                 ),
                                 leading: CircleAvatar(
-                                 radius: 25,
+                                  radius: 25,
                                   backgroundColor: Colors.white,
                                   child: ClipOval(
-                                      child: FadeInImage.assetNetwork(
-                                    image: oankiKonusma.konusulanUserProfilURL,
-                                    placeholder: "assets/images/profile.png",
+                                      child: Align(
+                                    heightFactor: 1,
+                                    child: FadeInImage.assetNetwork(
+                                      image:
+                                          oankiKonusma.konusulanUserProfilURL,
+                                      placeholder: "assets/images/profile.png",
+                                    ),
                                   )),
                                 )),
                             Divider(
