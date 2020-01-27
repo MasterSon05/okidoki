@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:okidoki/app/landing_page.dart';
-import 'package:okidoki/app/sign_in/siign_up_username_config.dart';
 
 import 'package:okidoki/model/user.dart';
 import 'package:okidoki/viewmodel/user_model.dart';
@@ -48,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'email already in use ';
     }
     return Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => UserNameConfig(),
+      builder: (context) => LandingPage(),
     ));
   }
 

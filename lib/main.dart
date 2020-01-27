@@ -7,21 +7,18 @@ import 'package:provider/provider.dart';
 
 void main() {
   setupLocator();
-  runApp(MyApp()); 
+  runApp(MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => UserModel(),
-
       child: MaterialApp(
           title: 'OkiDoki',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(        
+          theme: ThemeData(
             primarySwatch: Colors.deepPurple,
             accentColor: Colors.orange,
             cursorColor: Colors.orange,

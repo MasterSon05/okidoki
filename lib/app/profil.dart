@@ -54,12 +54,12 @@ class _ProfilPageState extends State<ProfilPage> {
     //print("Profil sayfasındaki user degerleri :" + _userModel.user.toString());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profil"),
+        title: Text("Profile"),
         actions: <Widget>[
           FlatButton(
             onPressed: () => _cikisIcinOnayIste(context),
             child: Text(
-              "Çıkış",
+              "Log Out",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           )
@@ -114,7 +114,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   initialValue: _userModel.user.email,
                   readOnly: true,
                   decoration: InputDecoration(
-                    labelText: "Emailiniz",
+                    labelText: "Email",
                     hintText: 'Email',
                     border: OutlineInputBorder(),
                   ),
@@ -134,7 +134,8 @@ class _ProfilPageState extends State<ProfilPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SocialLoginButton(
-                  butonText: "Değişiklikleri Kaydet",
+                  butonColor: Theme.of(context).primaryColor,
+                  butonText: "Save Changes",
                   onPressed: () {
                     _userNameGuncelle(context);
                     _profilFotoGuncelle(context);

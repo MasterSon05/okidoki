@@ -12,7 +12,7 @@ class SocialLoginButton extends StatelessWidget {
   const SocialLoginButton(
       {Key key,
       @required this.butonText,
-      this.butonColor: Colors.purple,
+      this.butonColor: Colors.deepPurpleAccent,
       this.textColor: Colors.white,
       this.radius: 16,
       this.yukseklik: 40,

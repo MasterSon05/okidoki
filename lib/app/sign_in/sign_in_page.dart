@@ -95,7 +95,7 @@ class _SignInPageState extends State<SignInPage> {
 import 'dart:async';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:okidoki/app/sign_in/login_screen.dart';
 
 class SignInPage extends StatefulWidget {
@@ -127,101 +127,99 @@ class _SignInPageState extends State<SignInPage>
   Widget build(BuildContext context) {
     final color = Colors.white;
     _scale = 1 - _controller.value;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: Color(0xFF8185E2),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                AvatarGlow(
-                  endRadius: 90,
-                  duration: Duration(seconds: 2),
-                  glowColor: Colors.white24,
-                  repeat: true,
-                  repeatPauseDuration: Duration(seconds: 2),
-                  startDelay: Duration(seconds: 1),
-                  child: Material(
-                      elevation: 8.0,
-                      shape: CircleBorder(),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        child: FlutterLogo(
-                          size: 50.0,
-                        ),
-                        radius: 50.0,
-                      )),
+    return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              AvatarGlow(
+                endRadius: 90,
+                duration: Duration(seconds: 2),
+                glowColor: Colors.white24,
+                repeat: true,
+                repeatPauseDuration: Duration(seconds: 2),
+                startDelay: Duration(seconds: 1),
+                child: Material(
+                    elevation: 8.0,
+                    shape: CircleBorder(),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      child: FlutterLogo(
+                        size: 50.0,
+                      ),
+                      radius: 50.0,
+                    )),
+              ),
+              DelayedAnimation(
+                child: Text(
+                  "Hi There",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.0,
+                      color: color),
                 ),
-                DelayedAnimation(
-                  child: Text(
-                    "Hi There",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
-                        color: color),
+                delay: delayedAmount + 1000,
+              ),
+              DelayedAnimation(
+                child: Text(
+                  "I'm OkiDoki",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.0,
+                      color: color),
+                ),
+                delay: delayedAmount + 2000,
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              DelayedAnimation(
+                child: Text(
+                  "Contact The World",
+                  style: TextStyle(fontSize: 20.0, color: color),
+                ),
+                delay: delayedAmount + 3000,
+              ),
+              DelayedAnimation(
+                child: Text(
+                  "Get To Know New Cultures",
+                  style: TextStyle(fontSize: 20.0, color: color),
+                ),
+                delay: delayedAmount + 3000,
+              ),
+              SizedBox(
+                height: 100.0,
+              ),
+              DelayedAnimation(
+                child: GestureDetector(
+                  onTapDown: _onTapDown,
+                  onTapUp: _onTapUp,
+                  child: Transform.scale(
+                    scale: _scale,
+                    child: _animatedButtonUI,
                   ),
-                  delay: delayedAmount + 1000,
                 ),
-                DelayedAnimation(
-                  child: Text(
-                    "I'm OkiDoki",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
-                        color: color),
-                  ),
-                  delay: delayedAmount + 2000,
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                DelayedAnimation(
-                  child: Text(
-                    "Contact The World",
-                    style: TextStyle(fontSize: 20.0, color: color),
-                  ),
-                  delay: delayedAmount + 3000,
-                ),
-                DelayedAnimation(
-                  child: Text(
-                    "Get To Know New Cultures",
-                    style: TextStyle(fontSize: 20.0, color: color),
-                  ),
-                  delay: delayedAmount + 3000,
-                ),
-                SizedBox(
-                  height: 100.0,
-                ),
-                DelayedAnimation(
-                  child: GestureDetector(
-                    onTapDown: _onTapDown,
-                    onTapUp: _onTapUp,
-                    child: Transform.scale(
-                      scale: _scale,
-                      child: _animatedButtonUI,
-                    ),
-                  ),
-                  delay: delayedAmount + 4000,
-                ),
-              ],
-            ),
-          )
-          //  Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     Text('Tap on the Below Button',style: TextStyle(color: Colors.grey[400],fontSize: 20.0),),
-          //     SizedBox(
-          //       height: 20.0,
-          //     ),
-          //      Center(
-
-          //   ),
-          //   ],
-
-          // ),
+                delay: delayedAmount + 4000,
+              ),
+            ],
           ),
-    );
+        )
+        //  Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     Text('Tap on the Below Button',style: TextStyle(color: Colors.grey[400],fontSize: 20.0),),
+        //     SizedBox(
+        //       height: 20.0,
+        //     ),
+        //      Center(
+
+        //   ),
+        //   ],
+
+        // ),
+
+        );
   }
 
   Widget get _animatedButtonUI => Container(
