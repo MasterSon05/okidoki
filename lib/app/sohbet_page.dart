@@ -47,8 +47,12 @@ class _SohbetPageState extends State<SohbetPage> {
             Hero(
               tag: 'photo',
               child: CircleAvatar(
-                  backgroundImage:
-                      NetworkImage(_chatModel.sohbetEdilenUser.profilURL)),
+                child: ClipOval(
+                    child: FadeInImage.assetNetwork(
+                  image: _chatModel.sohbetEdilenUser.profilURL,
+                  placeholder: "assets/images/profile.png",
+                )),
+              ),
             ),
             SizedBox(
               width: 10,
@@ -96,8 +100,8 @@ class _SohbetPageState extends State<SohbetPage> {
         children: <Widget>[
           Expanded(
             child: FlatButton(
-              child: Text(transDil.dilEmo+
-                transDil.dilAdi,
+              child: Text(
+                transDil.dilEmo + transDil.dilAdi,
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
@@ -123,8 +127,7 @@ class _SohbetPageState extends State<SohbetPage> {
           Expanded(
             child: FlatButton(
               child: Text(
-                anaDil.dilEmo+
-                anaDil.dilAdi,
+                anaDil.dilEmo + anaDil.dilAdi,
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {

@@ -102,9 +102,12 @@ class _ProfilPageState extends State<ProfilPage> {
                   child: CircleAvatar(
                     radius: 75,
                     backgroundColor: Colors.white,
-                    backgroundImage: _profilFoto == null
-                        ? NetworkImage(_userModel.user.profilURL)
-                        : FileImage(_profilFoto),
+                    child: ClipOval(
+                      child:_profilFoto == null
+                        ? FadeInImage.assetNetwork(image:_userModel.user.profilURL, placeholder: "assets/images/profile.png",)
+                        : FileImage(_profilFoto), 
+                    ),
+                 
                   ),
                 ),
               ),

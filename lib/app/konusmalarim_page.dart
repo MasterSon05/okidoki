@@ -82,22 +82,24 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                         child: Column(
                           children: <Widget>[
                             ListTile(
-                              title: Text(oankiKonusma.konusulanUserName),
-                              subtitle: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(oankiKonusma.sonYollananMesaj),
-                                  Text(oankiKonusma.aradakiFark)
-                                ],
-                              ),
-                              leading: CircleAvatar(
-                                radius: 28,
-                                backgroundColor: Colors.grey.withAlpha(40),
-                                backgroundImage: NetworkImage(
-                                    oankiKonusma.konusulanUserProfilURL),
-                              ),
-                            ),
+                                title: Text(oankiKonusma.konusulanUserName),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(oankiKonusma.sonYollananMesaj),
+                                    Text(oankiKonusma.aradakiFark)
+                                  ],
+                                ),
+                                leading: CircleAvatar(
+                                 radius: 25,
+                                  backgroundColor: Colors.white,
+                                  child: ClipOval(
+                                      child: FadeInImage.assetNetwork(
+                                    image: oankiKonusma.konusulanUserProfilURL,
+                                    placeholder: "assets/images/profile.png",
+                                  )),
+                                )),
                             Divider(
                               color: Colors.black,
                               height: 1,
