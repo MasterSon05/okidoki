@@ -63,8 +63,8 @@ class NotificationHandler {
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        //print("onMessage tetiklendi: $message");
-       // showNotification(message);
+        print("onMessage tetiklendi: $message");
+       showNotification(message);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
