@@ -13,6 +13,7 @@ import 'package:okidoki/viewmodel/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:okidoki/app/konusmalarim_page.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -64,7 +65,7 @@ class NotificationHandler {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage tetiklendi: $message");
-       showNotification(message);
+        showNotification(message);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {

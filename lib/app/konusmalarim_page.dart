@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
 import 'package:okidoki/app/sohbet_page.dart';
 import 'package:okidoki/model/konusma.dart';
 import 'package:okidoki/model/user.dart';
@@ -16,8 +18,37 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
   @override
   void initState() {
     super.initState();
+    initializeFCMNotification(context);
   }
 
+//bildirim bölümü
+  FirebaseMessaging _fcm = FirebaseMessaging();
+
+  initializeFCMNotification(BuildContext context) async {
+   
+    _fcm.onTokenRefresh.listen((newToken) async {
+      FirebaseUser _currentUser = await FirebaseAuth.instance.currentUser();
+      await Firestore.instance
+          .document("tokens/" + _currentUser.uid)
+          .setData({"token": newToken});
+    });
+
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+    //    print("onMessage tetiklendi: $message");
+        _konusmalarimListesiniYenile();
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        //print("onLaunch. tetiklendi: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        // print("onResume tetiklendi: $message");
+      },
+    );
+  }
+
+
+  //konuşmalarım sayfası
   @override
   Widget build(BuildContext context) {
     UserModel _userModel = Provider.of<UserModel>(context);
