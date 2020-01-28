@@ -107,6 +107,9 @@ class _ProfilPageState extends State<ProfilPage> {
                         
                       child: _profilFoto == null
                           ? FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                               width:200.0,
+                                            height: 200,
                               image: _userModel.user.profilURL,
                               placeholder: "assets/images/profile.png",
                             )
@@ -167,7 +170,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
   Future _cikisIcinOnayIste(BuildContext context) async {
     final sonuc = await PlatformDuyarliAlertDialog(
-      baslik: "Emin Misiniz?",
+      baslik: "Are You Sure?",
       icerik: "Are you sure you want to quit?",
       anaButonYazisi: "Accept",
       iptalButonYazisi: "Cancel",

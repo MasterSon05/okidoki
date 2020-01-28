@@ -29,10 +29,17 @@ class _SearchScreenState extends State<SearchScreen> {
             style: TextStyle(color: Colors.white),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.deepPurpleAccent,
-              hintText: 'Kullanıcı Adı Giriniz',
+              fillColor: Theme.of(context).accentColor.withOpacity(0.5),
+              hintText: 'Enter new username',
+              prefixIcon: Icon(
+                Icons.search,
+                color: Theme.of(context).bottomAppBarColor,
+              ),
               border: OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(16),
+                borderRadius: new BorderRadius.circular(100),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(100),
               ),
             ),
             onChanged: (val) => initiateSearch(val),
@@ -52,14 +59,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 default:
                   return ListView(
-                  
                     children: snapshot.data.documents
                         .map((DocumentSnapshot document) {
                       return Container(
-                    
-                         height: MediaQuery.of(context).size.height/1.3,
+                        height: MediaQuery.of(context).size.height / 1.3,
                         child: Center(
                           child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
                             color: Theme.of(context).accentColor,
                             child: Container(
                               padding: EdgeInsets.all(20.0),
@@ -73,9 +81,19 @@ class _SearchScreenState extends State<SearchScreen> {
                                     height: 150,
                                     width: 150,
                                     child: Hero(
-                                             tag: 'photo',                             child: CircleAvatar(
-                                        backgroundImage:
-                                            NetworkImage(document['profilURL']),
+                                      tag: 'photo',
+                                      child: CircleAvatar(
+                                        child: ClipOval(
+                                            child: Align(
+                                          child: FadeInImage.assetNetwork(
+                                            fit: BoxFit.cover,
+                                            width: 200.0,
+                                            height: 200,
+                                            image: document['profilURL'],
+                                            placeholder:
+                                                "assets/images/profile.png",
+                                          ),
+                                        )),
                                       ),
                                     ),
                                   ),
@@ -92,7 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     height: 20,
                                   ),
                                   SocialLoginButton(
-                                    butonText: "Sohbet Başlat",
+                                    butonText: "Start Chat",
                                     butonColor: Theme.of(context).primaryColor,
                                     radius: 10,
                                     onPressed: () {
@@ -103,12 +121,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                               ChangeNotifierProvider(
                                             create: (context) => ChatViewModel(
                                                 currentUser: _userModel.user,
-                                                sohbetEdilenUser: User.idveResim(
-                                                    userID: document['userID'],
-                                                    userName:
-                                                        document['userName'],
-                                                    profilURL:
-                                                        document['profilURL'])),
+                                                sohbetEdilenUser:
+                                                    User.idveResim(
+                                                        userID:
+                                                            document['userID'],
+                                                        userName: document[
+                                                            'userName'],
+                                                        profilURL: document[
+                                                            'profilURL'])),
                                             child: SohbetPage(),
                                           ),
                                         ),
@@ -125,7 +145,27 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
               }
             } else {
-              return Text("Arama Yapınız");
+              return Container(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.search,
+                        color: Theme.of(context).primaryColor,
+                        size: 120,
+                      ),
+                      Text(
+                        "Search username to start chatting",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 36),
+                      )
+                    ],
+                  ),
+                ),
+                height: MediaQuery.of(context).size.height - 150,
+              );
             }
           } else {
             return Center(

@@ -134,7 +134,7 @@ class _SignInPageState extends State<SignInPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               AvatarGlow(
-                endRadius: 90,
+                endRadius: 120,
                 duration: Duration(seconds: 2),
                 glowColor: Colors.white24,
                 repeat: true,
@@ -144,11 +144,9 @@ class _SignInPageState extends State<SignInPage>
                     elevation: 8.0,
                     shape: CircleBorder(),
                     child: CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      child: FlutterLogo(
-                        size: 50.0,
-                      ),
-                      radius: 50.0,
+                      backgroundColor: Colors.white,
+                      backgroundImage: AssetImage("assets/images/logo.png"),
+                      radius: 80.0,
                     )),
               ),
               DelayedAnimation(

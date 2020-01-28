@@ -129,6 +129,9 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                                       child: Align(
                                     heightFactor: 1,
                                     child: FadeInImage.assetNetwork(
+                                      fit: BoxFit.fill,
+                                         width:200.0,
+                                            height: 200,
                                       image:
                                           oankiKonusma.konusulanUserProfilURL,
                                       placeholder: "assets/images/profile.png",
@@ -163,7 +166,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                               size: 120,
                             ),
                             Text(
-                              "Henüz Konusma Yapılmamış",
+                              "You can find new users from the search section",
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 36),
                             )

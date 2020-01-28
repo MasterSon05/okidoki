@@ -51,6 +51,9 @@ class _SohbetPageState extends State<SohbetPage> {
                     child: Align(
                   heightFactor: 1,
                   child: FadeInImage.assetNetwork(
+                    fit:BoxFit.cover,
+                       width:200.0,
+                                            height: 200,
                     image: _chatModel.sohbetEdilenUser.profilURL,
                     placeholder: "assets/images/profile.png",
                   ),
