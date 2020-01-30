@@ -61,7 +61,7 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
   }
 
   Widget _kullaniciYokUi() {
-    final _kullanicilarModel = Provider.of<AllUserViewModel>(context);
+    final _kullanicilarModel = Provider.of<AllUserViewModel>(context,listen: false);
     return RefreshIndicator(
       onRefresh: _kullanicilarModel.refresh,
       child: SingleChildScrollView(
@@ -92,7 +92,7 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
 
   Widget _userListeElemaniOlustur(int index) {
     final _userModel = Provider.of<UserModel>(context);
-    final _tumKullanicilarViewModel = Provider.of<AllUserViewModel>(context);
+    final _tumKullanicilarViewModel = Provider.of<AllUserViewModel>(context,listen: false);
     var _oankiUser = _tumKullanicilarViewModel.kullanicilarListesi[index];
 
     if (_oankiUser.userID == _userModel.user.userID) {
@@ -136,7 +136,7 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
   void dahaFazlaKullaniciGetir() async {
     if (_isLoading == false) {
       _isLoading = true;
-      final _tumKullanicilarViewModel = Provider.of<AllUserViewModel>(context);
+      final _tumKullanicilarViewModel = Provider.of<AllUserViewModel>(context,listen: false);
       await _tumKullanicilarViewModel.dahaFazlaUserGetir();
       _isLoading = false;
     }

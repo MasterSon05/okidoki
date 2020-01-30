@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-   // NotificationHandler().initializeFCMNotification(context);
+    NotificationHandler().initializeFCMNotification(context);
   }
 
   @override

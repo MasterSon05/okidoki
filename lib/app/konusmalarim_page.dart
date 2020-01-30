@@ -51,7 +51,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
   //konuşmalarım sayfası
   @override
   Widget build(BuildContext context) {
-    UserModel _userModel = Provider.of<UserModel>(context);
+    UserModel _userModel = Provider.of<UserModel>(context,listen: false);
 
     return Scaffold(
       body: NestedScrollView(

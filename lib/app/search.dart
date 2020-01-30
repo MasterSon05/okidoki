@@ -18,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel _userModel = Provider.of<UserModel>(context);
+    UserModel _userModel = Provider.of<UserModel>(context,listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,14 +26,14 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: const EdgeInsets.all(8.0),
           height: 65,
           child: TextField(
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
             decoration: InputDecoration(
               filled: true,
-              fillColor: Theme.of(context).accentColor.withOpacity(0.5),
+              fillColor: Colors.white,
               hintText: 'Enter new username',
               prefixIcon: Icon(
                 Icons.search,
-                color: Theme.of(context).bottomAppBarColor,
+                color: Theme.of(context).primaryColor,
               ),
               border: OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(100),

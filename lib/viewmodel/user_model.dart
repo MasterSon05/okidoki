@@ -16,6 +16,7 @@ class UserModel with ChangeNotifier implements AuthBase {
   User _user;
   String emailHataMesaji;
   String sifreHataMesaji;
+  
 
   User get user => _user;
 

@@ -25,7 +25,7 @@ class _EmailveSifreLoginPageState extends State<EmailveSifreLoginPage> {
     _formKey.currentState.save();
     //debugPrint("email :" + _email + " şifre:" + _sifre);
 
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context,listen: false);
 
     if (_formType == FormType.LogIn) {
       try {
@@ -69,7 +69,7 @@ class _EmailveSifreLoginPageState extends State<EmailveSifreLoginPage> {
     _linkText = _formType == FormType.LogIn
         ? "Hesabınız Yok Mu? Kayıt Olun"
         : "Hesabınız Var Mı? Giriş Yapın";
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context,listen: false);
 
     if (_userModel.user != null) {
       Future.delayed(Duration(milliseconds: 1), () {

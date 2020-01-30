@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Duration get loginTime => Duration(milliseconds: timeDilation.ceil() * 2250);
 
   Future<String> _loginUser(LoginData data) async {
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context, listen: false);
     _email = data.name;
     _sifre = data.password;
     try {
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<String> _createUser(LoginData data) async {
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context,listen: false);
     _email = data.name;
     _sifre = data.password;
     try {
@@ -53,14 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context);
-
-    if (_userModel.user != null) {
-      Future.delayed(Duration(milliseconds: 750), () {
-        //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
-      });
-    }
-
+  
+   
     return FlutterLogin(
       title: 'OkiDoki',
       onLogin: (loginData) {
@@ -76,14 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return _createUser(loginData);
       },
       
-      onSubmitAnimationCompleted: () {
-        Future.delayed(Duration(milliseconds: 1), () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => LandingPage(),
-          ));
-          //  Navigator.of(context).popUntil(ModalRoute.withName("/"));
-        });
-      },
+
       onRecoverPassword: (_) => Future(null),
       
     );

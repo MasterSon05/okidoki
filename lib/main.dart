@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => UserModel(),
+      
       child: MaterialApp(
           title: 'OkiDoki',
           debugShowCheckedModeBanner: false,
@@ -24,15 +25,15 @@ class MyApp extends StatelessWidget {
             cursorColor: Colors.orange,
             textTheme: TextTheme(
               display2: TextStyle(
-                fontFamily: 'OpenSans',
+
                 fontSize: 45.0,
                 color: Colors.orange,
               ),
               button: TextStyle(
-                fontFamily: 'OpenSans',
+
               ),
-              subhead: TextStyle(fontFamily: 'NotoSans'),
-              body1: TextStyle(fontFamily: 'NotoSans'),
+              subhead: TextStyle(),
+              body1: TextStyle(),
             ),
           ),
           home: LandingPage()),

@@ -105,7 +105,7 @@ class NotificationHandler {
   }
 
   Future onSelectNotification(String payload) async {
-    final _userModel = Provider.of<UserModel>(myContext);
+    final _userModel = Provider.of<UserModel>(myContext,listen: false);
 
     if (payload != null) {
       // debugPrint('notification payload: ' + payload);

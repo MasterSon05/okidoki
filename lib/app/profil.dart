@@ -48,7 +48,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel _userModel = Provider.of<UserModel>(context);
+    UserModel _userModel = Provider.of<UserModel>(context,listen: false);
     _controllerUserName.text = _userModel.user.userName;
     //print("Profil sayfasındaki user degerleri :" + _userModel.user.toString());
     return Scaffold(
@@ -163,7 +163,7 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 
   Future<bool> _cikisYap(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context, listen: false);
     bool sonuc = await _userModel.signOut();
     return sonuc;
   }
@@ -182,7 +182,7 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 
   void _userNameGuncelle(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context,listen: false);
     if (_userModel.user.userName != _controllerUserName.text) {
       var updateResult = await _userModel.updateUserName(
           _userModel.user.userID, _controllerUserName.text);
@@ -205,7 +205,7 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 
   void _profilFotoGuncelle(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context);
+    final _userModel = Provider.of<UserModel>(context,listen: false);
     if (_profilFoto != null) {
       var url = await _userModel.uploadFile(
           _userModel.user.userID, "profil_foto", _profilFoto);
