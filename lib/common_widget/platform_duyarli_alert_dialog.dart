@@ -81,7 +81,7 @@ class PlatformDuyarliAlertDialog extends PlatformDuyarliWidget {
 
       tumButonlar.add(
         FlatButton(
-          child: Text("Tamam"),
+          child: Text("OK"),
           onPressed: () {
             Navigator.of(context).pop(true);
           },
