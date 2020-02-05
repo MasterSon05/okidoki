@@ -8,6 +8,7 @@ import 'package:okidoki/model/user.dart';
 import 'package:okidoki/viewmodel/chat_view_model.dart';
 import 'package:okidoki/viewmodel/user_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flushbar/flushbar.dart';
 
 class KonusmalarimPage extends StatefulWidget {
   @override
@@ -25,7 +26,6 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
   FirebaseMessaging _fcm = FirebaseMessaging();
 
   initializeFCMNotification(BuildContext context) async {
-   
     _fcm.onTokenRefresh.listen((newToken) async {
       FirebaseUser _currentUser = await FirebaseAuth.instance.currentUser();
       await Firestore.instance
@@ -35,8 +35,11 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-    //    print("onMessage tetiklendi: $message");
+        //    print("onMessage tetiklendi: $message");
         _konusmalarimListesiniYenile();
+       aktifBildirim(message);
+
+       
       },
       onLaunch: (Map<String, dynamic> message) async {
         //print("onLaunch. tetiklendi: $message");
@@ -47,11 +50,19 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
     );
   }
 
+aktifBildirim(message){
+ Flushbar(
+          flushbarPosition: FlushbarPosition.TOP,
+          title: message["data"]["title"],
+          message:message["data"]["message"],
+          duration: Duration(seconds: 5),
+        )..show(context);
 
+}
   //konuşmalarım sayfası
   @override
   Widget build(BuildContext context) {
-    UserModel _userModel = Provider.of<UserModel>(context,listen: false);
+    UserModel _userModel = Provider.of<UserModel>(context, listen: false);
 
     return Scaffold(
       body: NestedScrollView(
@@ -130,8 +141,8 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                                     heightFactor: 1,
                                     child: FadeInImage.assetNetwork(
                                       fit: BoxFit.fill,
-                                         width:200.0,
-                                            height: 200,
+                                      width: 200.0,
+                                      height: 200,
                                       image:
                                           oankiKonusma.konusulanUserProfilURL,
                                       placeholder: "assets/images/profile.png",

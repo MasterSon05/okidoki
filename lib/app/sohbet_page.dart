@@ -51,9 +51,9 @@ class _SohbetPageState extends State<SohbetPage> {
                     child: Align(
                   heightFactor: 1,
                   child: FadeInImage.assetNetwork(
-                    fit:BoxFit.cover,
-                       width:200.0,
-                                            height: 200,
+                    fit: BoxFit.cover,
+                    width: 200.0,
+                    height: 200,
                     image: _chatModel.sohbetEdilenUser.profilURL,
                     placeholder: "assets/images/profile.png",
                   ),
@@ -485,6 +485,7 @@ class _SohbetPageState extends State<SohbetPage> {
                     color: _gidenMesajRenk,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Text(
                           oankiMesaj.mesaj,
@@ -551,6 +552,23 @@ class _SohbetPageState extends State<SohbetPage> {
         ),
       );
     }
+  }
+
+  _mesajGoruldu(oankiMesaj) async {
+    final db = Firestore.instance;
+    await db
+        .collection('konusmalar')
+        .document(oankiMesaj.kimden + "--" + oankiMesaj.kime)
+        .collection("mesajlar")
+        .document(oankiMesaj)
+        .updateData({'status': "true"});
+    print("deneme");
+    await db
+        .collection('konusmalar')
+        .document(oankiMesaj.kime + "--" + oankiMesaj.kimden)
+        .collection("mesajlar")
+        .document(oankiMesaj)
+        .updateData({'status': "true"});
   }
 
   String _saatDakikaGoster(Timestamp date) {

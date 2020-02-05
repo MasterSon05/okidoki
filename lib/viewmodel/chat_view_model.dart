@@ -31,6 +31,7 @@ class ChatViewModel with ChangeNotifier {
 
   List<Mesaj> get mesajlarListesi => _tumMesajlar;
 
+
   ChatViewState get state => _state;
 
   set state(ChatViewState value) {

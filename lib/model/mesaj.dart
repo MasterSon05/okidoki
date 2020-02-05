@@ -8,13 +8,14 @@ class Mesaj {
   final String konusmaSahibi;
   final Timestamp date;
 
-  Mesaj(
-      {this.kimden,
-      this.kime,
-      this.bendenMi,
-      this.mesaj,
-      this.date,
-      this.konusmaSahibi});
+  Mesaj({
+    this.kimden,
+    this.kime,
+    this.bendenMi,
+    this.mesaj,
+    this.date,
+    this.konusmaSahibi,
+  });
 
   Map<String, dynamic> toMap() {
     return {

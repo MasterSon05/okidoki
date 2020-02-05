@@ -65,14 +65,15 @@ class NotificationHandler {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage tetiklendi: $message");
-        showNotification(message);
+       // showNotification(message);
+        
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
-        //print("onLaunch. tetiklendi: $message");
+     //   print("onLaunch. tetiklendi: $message");
       },
       onResume: (Map<String, dynamic> message) async {
-        // print("onResume tetiklendi: $message");
+       //  print("onResume tetiklendi: $message");
       },
     );
   }
@@ -105,7 +106,7 @@ class NotificationHandler {
   }
 
   Future onSelectNotification(String payload) async {
-    final _userModel = Provider.of<UserModel>(myContext,listen: false);
+    final _userModel = Provider.of<UserModel>(myContext, listen: false);
 
     if (payload != null) {
       // debugPrint('notification payload: ' + payload);
